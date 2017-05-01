@@ -1,9 +1,7 @@
-FROM ubuntu:latest
-MAINTAINER Rajdeep Dua "dua_rajdeep@yahoo.com"
-RUN apt-get update -y
-RUN apt-get install -y python-pip python-dev build-essential
-COPY . /app
+FROM python:3.5
+RUN pip install Flask==0.11.1 redis==2.10.5
+RUN useradd -ms /bin/bash admin
+USER admin
+COPY app /app
 WORKDIR /app
-RUN pip install -r requirements.txt
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+CMD ["python", "app.py"]
